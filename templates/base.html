@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+	<html lang="en">
+	  <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Base Template</title>
+        {% include "base/css.html" %}
+        {% block base_head %} {% endblock base_head %}
+	  </head>
+	  <body>
+        {% include "base/navbar.html" with brand_name='eCommerce' %}
+        {% block content %} {% endblock %}
+
+        {% include "base/js.html" %}
+	  </body>
+	</html>

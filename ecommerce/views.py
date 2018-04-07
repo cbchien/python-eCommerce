@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from .forms import ContactForm, LoginForm, RegisterForm
 
@@ -26,9 +26,9 @@ def about_page(request):
 def contact_page(request):
 	contact_form = ContactForm(request.POST or None)
 	context = {
-		"title":"Hello Contact Page!",
-		"content":"This is the contact page.",
-		"form":contact_form
+		"title": "Hello Contact Page!",
+		"content": "This is the contact page.",
+		"form": contact_form,
 	}
 	if contact_form.is_valid():
 		print(contact_form.cleaned_data)
@@ -60,6 +60,13 @@ def login_page(request):
 
 	return render(request, "auth/login.html", context)
 
+def logout_page(request):
+	logout(request)
+	context = {
+		"title": "Thank you for visiting",
+		"content": "You have successfully logged out.",
+	}
+	return render(request, "auth/logout.html", context)
 
 User = get_user_model()
 def register_page(request):

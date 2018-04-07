@@ -1,12 +1,18 @@
-<!-- {'paginator': None, 'page_obj': None, 'is_paginated': False, 'object_list': <QuerySet [<Product: Pen>]>, 'product_list': <QuerySet [<Product: Pen>]>, 'view': <products.views.ProductListView object at 0x000001EBA5DB94E0>}
- -->
-<!-- {{ qs }}
-{{ paginator }}
-{{ is_paginated }}
-{{ object_list }} -->
-
-{% for obj in object_list %}
-
-<a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a> </br>
-
-{% endfor %}
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for obj in object_list %}
+                <div class="col">
+                    <!-- {{ forloop.counter }} -->
+                    {% include "products/snippets/card.html" with instance=obj %}
+                    <!-- <a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a> </br> -->
+                {% if forloop.counter|divisibleby:3 %}
+                </div></div><div class="row"><div class="col-12"><hr></div>
+                {% else %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>   
+{% endblock content %}

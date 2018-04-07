@@ -1,6 +1,17 @@
-{{ object.title }} </br>
-{{ object.description }} </br>
-{{ object.price }} </br>
-{% if object.image %}
-<img src={{ object.image.url }} style="width:60px;" class="img-fluid"> </br>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{ object.title }}</h1></br>
+            Item added {{ object.created_at|timesince }} ago
+            {{ object.description|linebreaks }} </br>
+            {{ object.price|linebreaks }} </br>
+            {% if object.image %}
+            <img src={{ object.image.url }} style="width:60px;" class="img-fluid"> </br>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
