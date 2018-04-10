@@ -1,11 +1,21 @@
 {% extends "base.html" %}
+{% comment %} {% with request.GET.q as query %} {% endcomment %}
 {% block content %}
     <div class="row">
+        <div class="col-12 col-md-5 mb-3 py-3">
+            {% include "search/snippets/search-form.html" %}
+        </div>
+        {% if query %}
+        <div class="col-12 mb-3">
+            Searched for <b>{{ query }}</b>
+        </div>
+        {% endif %}
+    </div>
+    <hr/>
+    <div class="row">  
         {% for obj in object_list %}
             <div class="col">
-                <!-- {{ forloop.counter }} -->
                 {% include "products/snippets/card.html" with instance=obj %}
-                <!-- <a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a> </br> -->
             {% if forloop.counter|divisibleby:3 %}
             </div></div><div class="row"><div class="col-12"><hr></div>
             {% else %}

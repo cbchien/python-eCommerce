@@ -5,55 +5,54 @@
 {% url 'logout' as logout_url %}
 {% url 'register' as register_url %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        {% if brand_name %} {{ brand_name }}
-        {% else %} eCommerce
-        {% endif %}
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == product_list_url %}active{% endif %}" href="{{ product_list_url }}">Products</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contact</a>
-        </li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == register_url %}active{% endif %}" href="{{ register_url }}">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{ login_url }}">Login</a>
-        </li>
-        {% endif %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{{ product_list_url }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Our Products
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for obj in object_list %}
-                    <a class="dropdown-item" href="{{ obj.get_absolute_url }}">{{obj}}</a>
-                {% endfor %}
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'products:list' %}">View All</a>
-            </div>
-        </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            {% if brand_name %} {{ brand_name }}
+            {% else %} eCommerce
+            {% endif %}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == product_list_url %}active{% endif %}" href="{{ product_list_url }}">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contact</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == register_url %}active{% endif %}" href="{{ register_url }}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{ login_url }}">Login</a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ product_list_url }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Our Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for obj in object_list %}
+                        <a class="dropdown-item" href="{{ obj.get_absolute_url }}">{{obj}}</a>
+                    {% endfor %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'products:list' %}">View All</a>
+                </div>
+            </li>
+            </ul>
+            {% include "search/snippets/search-form.html" %}
+        </div>
     </div>
     </nav>
