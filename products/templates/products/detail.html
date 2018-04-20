@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-6">
         <h1>{{ object.title }}</h1></br>
         Item added {{ object.created_at|timesince }} ago
         {{ object.description|linebreaks }} </br>
@@ -10,6 +10,9 @@
         {% if object.image %}
         <img src={{ object.image.url }} style="width:60px;" class="img-fluid"> </br>
         {% endif %}
+    </div>
+    <div class="col-12 col-md-6">
+        {% include "products/snippets/update-cart.html" with product=object cart=cart %}
     </div>
 </div>
 {% endblock content %}
