@@ -25,14 +25,19 @@
         </tr>
         {% endfor %}
         <tr>
-        <th colspan="1"></th>
-        <td><b>Subtotal: </b></td>
-        <td>{{ cart.subtotal }}</td>
+            <th colspan="1"></th>
+            <td><b>Subtotal: </b></td>
+            <td>{{ cart.subtotal }}</td>
         </tr>
         <tr>
-        <th colspan="1"></th>
-        <td><b>Total: </b></td>
-        <td>{{ cart.total }}</td>
+            <th colspan="1"></th>
+            <td><b>Total: </b></td>
+            <td>{{ cart.total }}</td>
+        </tr>
+        <tr>
+            <th colspan="1"></th>
+            <td><b>Checkout: </b></td>
+            <td><a class="btn btn-block btn-success" href="{% url 'cart:checkout' %}">Check out {{ cart.total }}</a></td>
         </tr>
     </tbody>
     <p><a href="{% url 'products:list' %}">Shop for more products!</a></p>
