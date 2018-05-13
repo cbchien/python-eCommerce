@@ -1,0 +1,14 @@
+source bin/activate
+.\Scripts\activate
+python manage.py startapp {components}
+
+python manage.py runserver
+
+1234qwer
+Username: test123
+Email address: test123@gmail.com
+
+python manage.py makemigration if models are changed
+python manage.py migrate
+
+restart server

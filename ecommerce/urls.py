@@ -22,6 +22,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
 from accounts.views import guest_register_page, login_page, logout_page, register_page
+from addresses.views import checkout_address_create_view
 from .views import home_page, about_page, contact_page
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^about/$', about_page, name='about'),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', login_page, name='login'),
+    url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),
     url(r'^register/guest$', guest_register_page, name='guest_register'),
     url(r'^cart/', include("carts.urls", namespace="cart")),
     #url(r'^logout/$', logout_page, name='logout'),
