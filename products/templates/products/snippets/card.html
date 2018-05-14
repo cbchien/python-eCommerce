@@ -9,5 +9,6 @@
         <p class="card-text">{{ instance.description|truncatewords:20 }}</p>
         <a href="{{ instance.get_absolute_url }}" class="btn btn-primary">View Product</a>
         <p class="card-text">Price: {{ instance.price }}</p>
+        {% include "products/snippets/update-cart.html" with product=instance cart=cart %}
     </div>
 </div>
