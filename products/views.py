@@ -5,6 +5,8 @@ from django.http import Http404
 from carts.models import Cart
 from .models import Product
 
+from analytics.mixins import ObjectViewMixin
+
 class ProductFeaturedListView(ListView):
 	template_name = "products/list.html"
 
@@ -12,7 +14,7 @@ class ProductFeaturedListView(ListView):
 		request = self.request
 		return Product.objects.all().featured()
 
-class ProductFeaturedDetailView(DetailView):
+class ProductFeaturedDetailView(ObjectViewMixin, DetailView):
 	template_name = "products/featured-detail.html"
 
 	def get_queryset(self, *args, **kwargs):
@@ -34,7 +36,7 @@ class ProductListView(ListView):
 		# *args (arg, arg, arg,...) 
 		# **kwargs (keyword=arg, keyword=arg,..)
 		context = super(ProductListView, self).get_context_data(*args, **kwargs)
-		print(context)
+		# print(context)
 		return context
 
 	def get_queryset(self, *args, **kwargs):
@@ -52,13 +54,13 @@ def product_list_view(request):
 
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(ObjectViewMixin, DetailView):
 	queryset = Product.objects.all()
 	template_name = "products/detail.html"
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
-		print(context)
+		# print(context)
 		return context
 	
 	def get_object(self, *args, **kwargs):
@@ -102,7 +104,7 @@ def product_detail_view(request, pk=None, *args, **kwargs):
 	}
 	return render(request, "products/detail.html", context)
 
-class ProductDetailSlugView(DetailView):
+class ProductDetailSlugView(ObjectViewMixin, DetailView):
 	queryset = Product.objects.all()
 	template_name = "products/detail.html"
 
@@ -123,5 +125,6 @@ class ProductDetailSlugView(DetailView):
 			qs = Product.objects.filter(slug=slug, active=True)
 			instance = qs.first()
 		except:
-			raise Http404("check the code.")
+			raise Http404("check the code in Product Slug view.")
+		# object_viewed_signal.send(instance.__class__, instance=instance, request=request)
 		return instance
