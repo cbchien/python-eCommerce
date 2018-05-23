@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
+from django.core.urlresolvers import reverse
 
 from accounts.models import GuestEmail
 import stripe
@@ -41,6 +42,31 @@ class BillingProfile(models.Model):
     def charge(self, order_obj, card=None):
         return Charge.objects.do(self, order_obj, card)
 
+    # reverse relationship to card
+    def get_cards(self):
+        return self.card_set.all()
+
+    def get_payment_method_url(self):
+        return reverse('billing-payment-method')
+    
+    def set_cards_inactive(self):
+        cards_qs = self.get_cards()
+        cards_qs.update(active=False)
+        return cards_qs.filter(active=True).count()
+
+    @property
+    def has_card(self):
+        card_qs = self.get_cards()
+        print(card_qs)
+        return card_qs.exists() # return boolean
+
+    @property
+    def default_card(self):
+        default_card = self.get_cards().filter(active=True, default=True)
+        if default_card.exists():
+            return default_card.first()
+        return None
+
 
 # Integrating 3rd party API 
 def billing_profile_created_receiver(sender, instance, *args, **kwargs):
@@ -62,6 +88,9 @@ def user_created_receiver(sender, instance, created, *args, **kwargs):
 post_save.connect(user_created_receiver, sender=User)
 
 class CardManager(models.Manager):
+    def all(self, *args, **kwargs):
+        return self.get_queryset().filter(active=True)
+
     def add_new(self, billing_profile, token):
         if token:
             customer = stripe.Customer.retrieve(billing_profile.customer_id)
@@ -88,11 +117,22 @@ class Card(models.Model):
     exp_year            = models.IntegerField(blank=True, null=True)
     last4               = models.CharField(max_length=4, blank=True, null=True)
     default             = models.BooleanField(default=True)
+    active              = models.BooleanField(default=True)
+    timestamp           = models.DateTimeField(auto_now_add=True)
 
     objects = CardManager()
 
     def __str__(self):
-        return "{} {} {}".format(self.brand, self.last4, self.stripe_id)
+        return "{} {}".format(self.brand, self.last4)
+
+def new_card_post_save_receiver(sender, instance, created, *args, **kwargs):
+    if instance.default:
+        billing_profile = instance.billing_profile
+        qs = Card.objects.filter(billing_profile=billing_profile).exclude(pk=instance.pk)
+        qs.update(default=False)
+
+post_save.connect(new_card_post_save_receiver, sender=Card)
+
 
 class ChargeManager(models.Manager):
     def do(self, billing_profile, order_obj, card=None):
