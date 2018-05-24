@@ -21,6 +21,7 @@ class ObjectViewed(models.Model):
     ip_address      = models.CharField(max_length=120, blank=True, null=True)
     content_object  = GenericForeignKey('content_type', 'object_id')
     timestamp       = models.DateTimeField(auto_now_add=True)
+    comment         = models.CharField(max_length=120, blank=True, null=True)
 
     def __str__(self, ):
         return "%s viewed: %s" %(self.content_object, self.timestamp)
