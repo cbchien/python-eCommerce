@@ -32,18 +32,19 @@ class ObjectViewed(models.Model):
         verbose_name_plural = 'Objects Viewed'
 
 def object_viewed_receiver(sender, instance, request, *args, **kwargs):
-    print(sender, instance, request, request.user)
+    print('object_viewed_receiver', sender, instance, request, request.user)
     c_type = ContentType.objects.get_for_model(sender)
-    # ip_address = None
+    ip_address = None
     try:
         ip_address = get_client_ip(request)
+        print(ip_address)
     except:
         pass
     new_view_instance = ObjectViewed.objects.create(
                 user=request.user, 
                 content_type=c_type,
-                object_id=instance.id,
-                ip_address=get_client_ip(request)
+                object_id=int(instance.id),
+                ip_address=ip_address
                 )
 
 object_viewed_signal.connect(object_viewed_receiver)
@@ -93,7 +94,7 @@ if FORCE_INACTIVE_USER_ENDSESSION:
     post_save.connect(post_save_session_changed_receiver, sender=User)
 
 def user_logged_in_receiver(sender, instance, request, *args, **kwargs):
-    print(instance)
+    print('user logged in receiver', instance)
     user = instance
     ip_address = get_client_ip(request)
     session_key = request.session.session_key

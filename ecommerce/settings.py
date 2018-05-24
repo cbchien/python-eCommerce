@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'search',
     'tags',
     'carts',
-    'orders'
+    'orders',
+    'marketing'
 ]
 
 AUTH_USER_MODEL = 'accounts.User' # Custom User model
@@ -55,6 +56,10 @@ AUTH_USER_MODEL = 'accounts.User' # Custom User model
 # Settings for analytics
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION = False
+
+MAILCHIMP_API_KEY           = "214a52b6dac7bc202b95b72e96c1e486-us18"
+MAILCHIMP_DATA_CENTER       = "us18"
+MAILCHIMP_EMAIL_LIST_ID     = "ae62de19e5"
 
 STRIPE_SECRET_KEY = "sk_test_iiOy8vTuT7N0fg7GQZ0NLxxD"
 STRIPE_PUB_KEY = "pk_test_PMqhLzcmfBpbJ7IYW61DcdSF"
