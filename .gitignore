@@ -8,7 +8,7 @@ pip-selfcheck.json
 # Django related 
 # src/ecommerce/settings/local.py
 # static-cdn/  # any collected static files 
-
+requirements/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
