@@ -1,7 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from accounts.models import GuestEmail
 import stripe
