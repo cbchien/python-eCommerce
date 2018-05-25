@@ -32,12 +32,11 @@ class ObjectViewed(models.Model):
         verbose_name_plural = 'Objects Viewed'
 
 def object_viewed_receiver(sender, instance, request, *args, **kwargs):
-    print('object_viewed_receiver', sender, instance, request, request.user)
+    # print('object_viewed_receiver', sender, instance, request, request.user)
     c_type = ContentType.objects.get_for_model(sender)
     ip_address = None
     try:
         ip_address = get_client_ip(request)
-        print(ip_address)
     except:
         pass
     new_view_instance = ObjectViewed.objects.create(

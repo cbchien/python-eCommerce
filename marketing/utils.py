@@ -11,12 +11,12 @@ if MAILCHIMP_API_KEY is None:
 MAILCHIMP_DATA_CENTER = getattr(settings, "MAILCHIMP_DATA_CENTER", None)
 
 if MAILCHIMP_DATA_CENTER is None:
-    raise NotImplementedError("MAILCHIMP_DATA_CENTER must be set in the settings, something like us17")
+    raise NotImplementedError("MAILCHIMP_DATA_CENTER must be set in the settings, something like us18")
 
 MAILCHIMP_EMAIL_LIST_ID = getattr(settings, "MAILCHIMP_EMAIL_LIST_ID", None)
 
 if MAILCHIMP_EMAIL_LIST_ID is None:
-    raise NotImplementedError("MAILCHIMP_EMAIL_LIST_ID must be set in the settings, something like us17")
+    raise NotImplementedError("MAILCHIMP_EMAIL_LIST_ID must be set in the settings, something like us18")
 
 def check_email(email):
     if not re.match(r".+@.+\..+", email):
@@ -65,7 +65,7 @@ class Mailchimp(object):
         return r.status_code, r.json()
 
     def check_valid_status(self, status):
-        choices = ['subscribed','unsubscribed', 'cleaned', 'pending']
+        choices = ['subscribed', 'unsubscribed', 'cleaned', 'pending']
         if status not in choices:
             raise ValueError("Not a valid choice")
         return status
@@ -78,12 +78,14 @@ class Mailchimp(object):
             sub_hash=subscriber_hash
         )
         data = {
-            status: self.check_valid_status(status)
+            "status": self.check_valid_status(status)
         }
-        r = requests.put(endpoint, 
+        r = requests.put(
+            endpoint, 
             auth=("", MAILCHIMP_API_KEY), 
             data=json.dumps(data)
         )
+        j = r.json()
         return r.status_code, r.json()
 
     def add_email(self, email):

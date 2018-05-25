@@ -56,6 +56,11 @@
                 </div>
             </li>
             </ul>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <p>Welcome, {{ request.user.email }}!</p>
+            </li>
+            {% endif %}
             {% include "search/snippets/search-form.html" %}
         </div>
     </div>
