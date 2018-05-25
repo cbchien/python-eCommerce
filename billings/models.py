@@ -28,7 +28,7 @@ class BillingProfileManager(models.Manager):
         return obj, created
 
 class BillingProfile(models.Model):
-    user        = models.OneToOneField(User, unique=True, null=True, blank=True)
+    user        = models.OneToOneField(User, on_delete=models.PROTECT, unique=True, null=True, blank=True)
     email       = models.EmailField()
     active      = models.BooleanField(default=True)
     update      = models.DateTimeField(auto_now=True)
@@ -76,7 +76,6 @@ def billing_profile_created_receiver(sender, instance, *args, **kwargs):
         customer = stripe.Customer.create(
             email = instance.email,
         )
-    print(customer)
     instance.customer_id = customer.id
     # instance.save()
 
