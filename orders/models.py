@@ -28,7 +28,7 @@ class OrderManager(models.Manager):
         return obj, created
 
 class Order(models.Model):
-    billing_profile     = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.PROTECT)
+    billing_profile     = models.ForeignKey(BillingProfile, on_delete=models.PROTECT, null=True, blank=True)
     order_id            = models.CharField(max_length=120, blank=True)
     shipping_address    = models.ForeignKey(Address, related_name="shipping_address", null=True, blank=True, on_delete=models.PROTECT)
     billing_address     = models.ForeignKey(Address, related_name="billing_address", null=True, blank=True, on_delete=models.PROTECT)

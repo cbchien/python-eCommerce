@@ -15,7 +15,7 @@ FORCE_SESSION_TO_ONE = getattr(settings, 'FORCE_SESSION_TO_ONE', False)
 FORCE_INACTIVE_USER_ENDSESSION = getattr(settings, 'FORCE_INACTIVE_USER_ENDSESSION', False)
 
 class ObjectViewed(models.Model):
-    user            = models.ForeignKey(User, blank=True, null=True)
+    user            = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     content_type    = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True) # Applies to all models
     object_id       = models.PositiveIntegerField() # User id, Product ID, Cart, ...
     ip_address      = models.CharField(max_length=120, blank=True, null=True)
@@ -50,7 +50,7 @@ object_viewed_signal.connect(object_viewed_receiver)
 
 
 class UserSession(models.Model):
-    user            = models.ForeignKey(User, blank=True, null=True)
+    user            = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     ip_address      = models.CharField(max_length=120, blank=True, null=True)
     session_key     = models.CharField(max_length=100, blank=True, null=True)
     timestamp       = models.DateTimeField(auto_now_add=True)
