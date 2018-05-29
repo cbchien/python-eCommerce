@@ -34,7 +34,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Python CBCommerce <grassgreenbrian@gmail.com>'
 
-MANAGERS = ("Master", "grassgreenbrian@gmail.com")
+MANAGERS = (
+    ("Master", "grassgreenbrian@gmail.com"),
+    )
 
 ADMINS = MANAGERS
 
