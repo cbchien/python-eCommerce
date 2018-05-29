@@ -21,12 +21,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com']
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'grassgreenbrian@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Python CBCommerce <grassgreenbrian@gmail.com>'
+
+MANAGERS = ("grassgreenbrian@gmail.com", "Master")
+
+ADMINS = MANAGERS
 
 
 # Application definition

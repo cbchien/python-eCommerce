@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','.herokuapp.com']
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'grassgreenbrian@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Python CBCommerce <grassgreenbrian@gmail.com>'
+
+MANAGERS = ("grassgreenbrian@gmail.com", "Master")
+
+ADMINS = MANAGERS
+
+
 
 # Application definition
 
