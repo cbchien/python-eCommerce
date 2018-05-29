@@ -6,7 +6,8 @@ from django.urls import reverse
 
 from accounts.models import GuestEmail
 import stripe
-stripe.api_key = "sk_test_iiOy8vTuT7N0fg7GQZ0NLxxD"
+STRIPE_SECRET_KEY = getattr(settings, "STRIPE_SECRET_KEY","sk_test_iiOy8vTuT7N0fg7GQZ0NLxxD")
+stripe.api_key = STRIPE_SECRET_KEY
 
 User = settings.AUTH_USER_MODEL
 
