@@ -34,9 +34,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Python CBCommerce <grassgreenbrian@gmail.com>'
 
-MANAGERS = (
+MANAGERS = [
     ("Master", "grassgreenbrian@gmail.com"),
-    )
+]
 
 ADMINS = MANAGERS
 
@@ -80,6 +80,7 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_iiOy8vTuT7N0fg7
 STRIPE_PUB_KEY = os.environ.get('STRIPE_PUB_KEY', 'pk_test_PMqhLzcmfBpbJ7IYW61DcdSF')
 
 MIDDLEWARE = [
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
