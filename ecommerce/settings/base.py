@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third party
+    'storages',
 
     # Our apps
     'accounts',
@@ -155,6 +157,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
+from ecommerce.aws.conf import *
 
 CORS_REPLACE_HTTPS_REFERER      = False
 HOST_SCHEME                     = "http://"
