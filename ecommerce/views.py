@@ -12,8 +12,11 @@ def home_page(request):
 		"title":"Hello World! Yeah, Context!",
 		"content":"This is the home page",
 	}
-	if request.user.is_authenticated():
-		context["premium_content"] = "This is exclusive content"
+	try:
+		if request.user.is_authenticated():
+			context["premium_content"] = "This is exclusive content"
+	except:
+		pass
 	return render(request, "home_page.html", context)
 
 def about_page(request):
