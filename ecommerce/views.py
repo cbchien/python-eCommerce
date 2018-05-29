@@ -13,7 +13,7 @@ def home_page(request):
 		"content":"This is a ecommerce demo page",
 	}
 	try:
-		if request.user.is_authenticated():
+		if request.user.is_authenticated:
 			context["premium_content"] = "You are now logged in to our website"
 	except:
 		pass
