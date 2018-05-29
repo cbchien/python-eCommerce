@@ -34,17 +34,20 @@ class ObjectViewed(models.Model):
 def object_viewed_receiver(sender, instance, request, *args, **kwargs):
     # print('object_viewed_receiver', sender, instance, request, request.user)
     c_type = ContentType.objects.get_for_model(sender)
+    user = None
     ip_address = None
     try:
         ip_address = get_client_ip(request)
     except:
         pass
-    new_view_instance = ObjectViewed.objects.create(
-                user=request.user, 
-                content_type=c_type,
-                object_id=int(instance.id),
-                ip_address=ip_address
-                )
+    if request.user.is_authenticated():
+        user = request.user
+        new_view_instance = ObjectViewed.objects.create(
+                    user=user, 
+                    content_type=c_type,
+                    object_id=int(instance.id),
+                    ip_address=ip_address
+                    )
 
 object_viewed_signal.connect(object_viewed_receiver)
 
