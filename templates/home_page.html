@@ -7,20 +7,21 @@
 
 {% block content %}
 	<div class="text-center">
-		<h1>{{ title }}</h1>
-		<h1>Hello, world!</h1>
+		<h1 style="color:#679ef7">{{ title }}</h1>
+		<h1><a href="/products/">View our products!</a></h1>
+		<h1><i class="fa fa-shopping-cart fa-5x" id="main-cart-icon" style="color:#679ef7"></i></h1>
 	</div>
 
 	<div class='row'>
-			<div class="col">
+			<div class="col text-center">
 				<p>{{ content }}</p>
 			</div>
 	</div>
 
 	{% if request.user.is_authenticated %}
 	<div class='row'>
-			<div class="col">
-				<p>This will be premium content</p>
+			<div class="col text-center">
+				<p>Special promotion coming soon!</p>
 				<p>{{ premium_content }}</p>
 			</div>
 	</div>

@@ -9,12 +9,12 @@ from .forms import ContactForm
 
 def home_page(request):
 	context = {
-		"title":"Hello World! Yeah, Context!",
-		"content":"This is the home page",
+		"title":"Welcome to CBCommerce",
+		"content":"This is a ecommerce demo page",
 	}
 	try:
 		if request.user.is_authenticated():
-			context["premium_content"] = "This is exclusive content"
+			context["premium_content"] = "You are now logged in to our website"
 	except:
 		pass
 	return render(request, "home_page.html", context)
